@@ -13,4 +13,4 @@ Botアプリとの接続
   - Botの操作パネルを追加する(取引開始/停止/戦略変更/ロスカットシステムON/OFF等)
     - の前にユーザー認証システムが必要
 
-![めっちゃBitFlyerになってしまったUI](https://gyazo.com/ac5dec585aef3fddb4a43e9a522eac67)
+![めっちゃBitFlyerになってしまったUI](https://i.gyazo.com/ac5dec585aef3fddb4a43e9a522eac67.png)
