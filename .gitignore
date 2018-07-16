@@ -1,0 +1,5 @@
+secret.json
+*.db
+public/favicon.ico
+package-lock.json
+node_modules
