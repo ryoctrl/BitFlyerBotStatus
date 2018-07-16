@@ -1,0 +1,107 @@
+body {
+	padding: 5px 20vw;
+	display: block;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background: #20272E;
+	color: white;
+	border: 1px solid rgba(247,105,77,.5);
+}
+
+#server_status span {
+	font-size: 18pt;
+}
+
+
+a {
+  color: #00B7FF;
+}
+
+th {
+	font-weight: normal;
+	padding: 0 1vw;
+}
+
+
+li {
+	list-style: none;
+	padding: 0;
+}
+
+.title-column {
+	background: #e8e8e8;
+}
+
+.normal-column {
+	background: #ccc;
+}
+
+/*サーバーステータス*/
+.server_status {
+	
+}
+
+/*証拠金列*/
+.collateral {
+}
+
+/*建玉列*/
+.position {
+}
+
+/*取引履歴列*/
+.hist {
+	font-size: 10pt;	
+}
+
+.content {
+	width: 60vw;
+	margin: 3vh 0;
+}
+
+.content table {
+	border-spacing: 0;
+	width: 100%;
+}
+
+
+.content thead {
+	background: #2C3940;
+}
+
+.hist #records {
+	table-layout: fixed;
+	width: 100%;
+}
+
+.hist #records tbody {
+	display: block;
+	height: 40vh;
+	overflow-y: scroll;
+}
+
+/*スクロールバー*/
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #95463B;
+}
+
+
+.content p{
+	display: inline;
+	margin-right: 10px;
+}
+
+@media screen and (max-width: 480px) {
+	.content {
+		width: 100vw;
+	}
+}
