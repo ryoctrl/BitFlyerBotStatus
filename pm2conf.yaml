@@ -1,7 +1,0 @@
-# Labchoise Setting YAML.
-
-name: bfbot
-script: ./bin/www
-exec_cluster: "cluster"
-instances: 0
-log-date-format: "YYYY-MM-DD HH:mm Z"

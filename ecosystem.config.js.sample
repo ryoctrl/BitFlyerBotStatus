@@ -1,0 +1,15 @@
+module.exports = {
+  apps : [
+    {
+      name      : 'bfbs',
+      script    : 'npm',
+      args      : 'start',
+      env: {
+          API_KEY: 'your bitflyer api key',
+          API_SECRET: 'your bitflyer api secret',
+          BOT_PM2_NAME: 'bfat',
+      },
+      'log-date-format': 'YYYY-MM-DD HH:mm:ss Z'
+    },
+  ],
+};

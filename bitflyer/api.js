@@ -1,9 +1,8 @@
 const r2 = require('r2');
 const crypto = require('crypto');
-const Secret = require('../secret.json');
 
-const API_KEY = Secret.API_KEY;
-const API_SECRET = Secret.API_SECRET;
+const API_KEY = process.env.API_KEY;
+const API_SECRET = process.env.API_SECRET;
 const URL = 'https://api.bitflyer.jp';
 
 class BitFlyer {
