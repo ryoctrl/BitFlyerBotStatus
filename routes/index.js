@@ -3,7 +3,8 @@ var router = express.Router();
 const exec = require('child_process').exec;
 const BitFlyer = require('../bitflyer/api').BitFlyer;
 const api = new BitFlyer();
-
+const pm2 = require('pm2');
+const targetName = process.env.BOT_PM2_NAME;
 
 const fetchAPI = async (callback) => {
 	let datas = {};
@@ -14,24 +15,35 @@ const fetchAPI = async (callback) => {
 	today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 0, 0, 0);
 	datas.history = [];
 	let change = 0;
-	for(let hist of history) {
-		let date = new Date(Date.UTC(hist.date.substring(0, 4), hist.date.substring(5, 7), hist.date.substring(8, 10), hist.date.substring(11, 13), hist.date.substring(14, 16), hist.date.substring(17, 19)));
-		if(date.getTime() > today.getTime()) {	
-			hist.date = date;
-			change += hist.change;
-			datas.history.push(hist);
-		}
-	}
+    if(Array.isArray(history)) {
+        for(let hist of history) {
+            let date = new Date(Date.UTC(hist.date.substring(0, 4), hist.date.substring(5, 7), hist.date.substring(8, 10), hist.date.substring(11, 13), hist.date.substring(14, 16), hist.date.substring(17, 19)));
+            if(date.getTime() > today.getTime()) {	
+                hist.date = date;
+                change += hist.change;
+                datas.history.push(hist);
+            }
+        }
+    }
 	datas.change = change;
-	exec('ps -x | grep node', (err, stdout, stderr) => {
-		if(err) {
-			datas.status = "exec error";
-		} else {
-			let status = stdout.indexOf('trade') != -1? 'running' : 'stop';
-			datas.status = status;
-		}
-		callback(datas);
-	});
+
+    return new Promise((resolve, reject) => {
+        pm2.describe(targetName, (err, desc) => {
+            if(err) {
+                reject(err);
+                return;
+            }
+
+            if(desc.length === 0) {
+                reject(new Error('target process was not found'));
+                return;
+            }
+
+            datas.status = desc[0].pm2_env.status;
+            resolve(datas);
+
+        });
+    });
 }
 
 const knex = require('knex')({
@@ -42,14 +54,10 @@ const knex = require('knex')({
 	useNullAsDefault: true
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	fetchAPI((datas) => {
-		res.render('index', datas);
-		res.end();
-	});
+router.get('/', async (req, res) => {
+    const datas = await fetchAPI();
+    res.render('index', datas);
 });
-
 
 router.post('/api/create', function(req, res, next) {
 	console.log("getting post request");
