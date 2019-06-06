@@ -3,3 +3,4 @@ secret.json
 public/favicon.ico
 package-lock.json
 node_modules
+ecosystem.config.js
