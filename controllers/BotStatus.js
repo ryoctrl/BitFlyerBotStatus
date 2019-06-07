@@ -50,9 +50,9 @@ class BotStatus {
             results.history.push(data);
         };
         const history = await this.api.getCollateralHistory();
-        const now = moment();
+        const today = moment().hour(0).minute(0).seconds(0);
         if(Array.isArray(history)) {
-            history.filter(data => now.diff(moment(data.date + 'Z'), 'hours') < now.hours())
+            history.filter(data => moment(data.date + 'Z') > today)
                     .map(historyProcess);
         } else {
             results.error = history;
