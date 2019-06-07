@@ -10,6 +10,7 @@ const fetchAPI = async () => {
     datas.history = history;
     datas.change = change;
     datas.status = await bot.getHealth();
+    datas.logs = await bot.getLogs();
     return datas;
 }
 

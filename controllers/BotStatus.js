@@ -2,6 +2,7 @@ const pm2 = require('pm2');
 const moment = require('moment');
 moment.locale('ja');
 const BitFlyer = require('../api/bitflyer');
+const fs = require('fs');
 
 const API_KEY = process.env.API_KEY;
 const API_SECRET = process.env.API_SECRET;
@@ -10,9 +11,10 @@ const BOT_PM2_NAME = process.env.BOT_PM2_NAME;
 class BotStatus {
     constructor(API_KEY, API_SECRET) {
         this.api = new BitFlyer(API_KEY, API_SECRET);
+        this.botName = BOT_PM2_NAME;
     }
 
-    getHealth() {
+    _getPm2Status() {
         return new Promise((resolve, reject) => {
             pm2.describe(BOT_PM2_NAME, (err, desc) => {
                 if(err) {
@@ -24,10 +26,19 @@ class BotStatus {
                     reject(new Error('bot process was not found'));
                     return;
                 }
-
-                resolve(desc[0].pm2_env.status);
+        
+                resolve(desc[0]);
             });
         });
+    }
+
+    async getHealth() {
+        const status = await this._getPm2Status().catch(err => err);
+        if(status instanceof Error) {
+            return status.toString();
+        }
+
+        return status.pm2_env.status;
     }
 
     getCollateral() {
@@ -58,6 +69,20 @@ class BotStatus {
             results.error = history;
         }
         return results;
+    }
+
+    async getLogs() {
+        const today = moment().format('YYYYMMDD');
+        const pm2Status = await this._getPm2Status();
+        const path = pm2Status.pm2_env.env.PWD + '/logs/' + today + '.log';
+        console.log(path);
+        try {
+            fs.statSync(path);
+            const logs = fs.readFileSync(path).toString().split('\n').slice(-51).slice(0, 50).reverse();
+            return logs;
+        } catch(e) {
+            return ['Log file not found'];
+        }
     }
 }
 

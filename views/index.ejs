@@ -65,43 +65,67 @@
 					<% } %>
 				</tbody>
 			</table>
-	
 		</div>
 
-		<div class="hist content">
-			<table>
-				<thead>
-					<tr>
-						<th colspan="3"><% let today = new Date(Date.now());%><%= today.getFullYear() %>年<%=today.getMonth() %>月<%=today.getDate()%>日の取引一覧</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th style="width: 20vw;">決済時間</th>
-						<th style="width: 20vw;">決済後証拠金</th>
-						<th style="width: 20vw;">推移金額</th>
-					</tr>
-				</tbody>
-			</table>
-			<table id="records">
-				<tbody>
-					<% if(history.length == 0) {%> 
-						<tr>
-							<th>本日の取引はまだありません.</th>
-						</tr>
-					<%} else {%>
-						<% for(let hist of history) { %>
-								<tr>
-									<th style="width: 20vw;"><%= ('0' + hist.date.getHours()).slice(-2) %>:<%=('0' + hist.date.getMinutes()).slice(-2) %>:<%=('0' + hist.date.getSeconds()).slice(-2)%></th>
-									<th style="width: 20vw;"> <%=hist.amount%>円</th>
-									<th style="width: 20vw;"> <%= hist.change %>円推移</th>
-								</tr>
-						<% } %>
-					<% } %>
-				</tbody>
-			</table>
-			
-		</div>
-		
+        <div class="histories">
+            <div class="history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3"><% let today = new Date(Date.now());%><%= today.getFullYear() %>年<%=today.getMonth() %>月<%=today.getDate()%>日の取引一覧</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th style="width: 10vw;">決済時間</th>
+                            <th style="width: 10vw;">決済後証拠金</th>
+                            <th style="width: 10vw;">推移金額</th>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="hist-table" id="records">
+                    <tbody>
+                        <% if(history.length == 0) {%> 
+                            <tr>
+                                <th>本日の取引はまだありません.</th>
+                            </tr>
+                        <%} else {%>
+                            <% for(let hist of history) { %>
+                                    <tr>
+                                        <th style="width: 20vw;"><%= ('0' + hist.date.getHours()).slice(-2) %>:<%=('0' + hist.date.getMinutes()).slice(-2) %>:<%=('0' + hist.date.getSeconds()).slice(-2)%></th>
+                                        <th style="width: 20vw;"> <%=hist.amount%>円</th>
+                                        <th style="width: 20vw;"> <%= hist.change %>円推移</th>
+                                    </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3"><%= today.getFullYear() %>年<%=today.getMonth() %>月<%=today.getDate()%>日のログ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th style="width: 10vw;">出力時間</th>
+                            <th style="width: 20vw;">ログ</th>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="hist-table" id="logs">
+                    <tbody>
+                        <% for(let log of logs) { %>
+                            <tr>
+                                <th><%= log.split(' ').slice(0, 2) %></th>
+                                <th><%= log.split(' ').slice(2, 10) %></th>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 	</body>
 </html>

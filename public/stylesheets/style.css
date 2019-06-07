@@ -49,8 +49,9 @@ li {
 }
 
 /*取引履歴列*/
-.hist {
+.histories {
 	font-size: 10pt;	
+    display: flex;
 }
 
 .content {
@@ -66,11 +67,6 @@ li {
 
 .content thead {
 	background: #2C3940;
-}
-
-.hist #records {
-	table-layout: fixed;
-	width: 100%;
 }
 
 .hist #records tbody {
@@ -98,6 +94,17 @@ li {
 .content p{
 	display: inline;
 	margin-right: 10px;
+}
+
+
+.hist-table {
+    table-layout: fixed;
+}
+
+.hist-table tbody {
+    display: block;
+    height: 40vh;
+    overflow-y: scroll;
 }
 
 @media screen and (max-width: 480px) {
