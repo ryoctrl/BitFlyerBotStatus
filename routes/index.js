@@ -46,33 +46,20 @@ const fetchAPI = async (callback) => {
     });
 }
 
-const knex = require('knex')({
-	dialect: 'sqlite3',
-	connection: {
-		filename: 'bfbotapi.db',
-	},
-	useNullAsDefault: true
-});
-
 router.get('/', async (req, res) => {
     const datas = await fetchAPI();
     res.render('index', datas);
 });
 
 router.post('/api/create', function(req, res, next) {
-	console.log("getting post request");
 	let signal = req.body.signal;
 	let position = req.body.position;
 	let price = req.body.price;
-	console.log(signal + "," + position + "," + price);
 	let transactionData = {
 		side: signal,
 		position: position,
 		price: price
 	};
-	console.log("create transaction");
-	knex('transactions').insert(transactionData).then({});
-	console.log("transaction complete");
 	res.json({"message": "create transaction completed"});
 });
 module.exports = router;
