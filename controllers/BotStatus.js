@@ -7,7 +7,6 @@ const API_KEY = process.env.API_KEY;
 const API_SECRET = process.env.API_SECRET;
 const BOT_PM2_NAME = process.env.BOT_PM2_NAME;
 
-
 class BotStatus {
     constructor(API_KEY, API_SECRET) {
         this.api = new BitFlyer(API_KEY, API_SECRET);
@@ -53,16 +52,13 @@ class BotStatus {
         const history = await this.api.getCollateralHistory();
         const now = moment();
         if(Array.isArray(history)) {
-            history
-                .filter(data => now.diff(moment(data.date + 'Z'), 'hours') < now.hours())
-                .map(historyProcess);
+            history.filter(data => now.diff(moment(data.date + 'Z'), 'hours') < now.hours())
+                    .map(historyProcess);
         } else {
             results.error = history;
         }
-
         return results;
     }
-
 }
 
 module.exports = new BotStatus(API_KEY, API_SECRET);
