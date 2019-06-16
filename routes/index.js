@@ -11,6 +11,7 @@ const fetchAPI = async () => {
     datas.change = change;
     datas.status = await bot.getHealth();
     datas.logs = await bot.getLogs();
+    datas.settings = await bot.getSettings();
     return datas;
 }
 

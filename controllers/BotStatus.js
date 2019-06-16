@@ -83,6 +83,19 @@ class BotStatus {
             return ['Log file not found'];
         }
     }
+
+    async getSettings() {
+        const pm2Status = await this._getPm2Status();
+        const path = pm2Status.pm2_env.env.PWD + '/bot/vixrsi/vixrsi_config.js';
+        const settings = require(path);
+        const traderSettings = settings.trader;
+        const settingsObj = {
+            lot: traderSettings.amount,
+            leverage: traderSettings.leverage,
+            candleSize: traderSettings.candleSize
+        };
+        return settingsObj;
+    }
 }
 
 module.exports = new BotStatus(API_KEY, API_SECRET);

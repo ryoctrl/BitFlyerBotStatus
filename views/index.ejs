@@ -4,12 +4,15 @@
     <title>BitFlyerBot</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script>
-        setTimeout(() => location.reload(), 10000);
+        setTimeout(() => location.reload(), 60000);
     </script>
   </head>
 	<body>
 		<div id="server_status">
-			<span>Server: <%= status %> </span>
+			<span style="border:2px">Server: <%= status %> </span>
+            <span>Lot: <%= settings.lot %></span>
+            <span>Leverage: <%= settings.leverage %></span>
+            <span>Candle: <%= settings.candleSize %></span>
 			<input type="button" value="update" onclick="location.reload()">
 		</div>
 		<div class="collateral content">
@@ -120,7 +123,7 @@
                         <% for(let log of logs) { %>
                             <tr>
                                 <th><%= log.split(' ').slice(0, 2) %></th>
-                                <th><%= log.split(' ').slice(2, 10) %></th>
+                                <th style="text-align: left;"><%= log.split(' ').slice(3, 10) %></th>
                             </tr>
                         <% } %>
                     </tbody>
