@@ -9,11 +9,58 @@
   </head>
 	<body>
 		<div id="server_status">
-			<span style="border:2px">Server: <%= status %> </span>
-            <span>Lot: <%= settings.lot %></span>
-            <span>Leverage: <%= settings.leverage %></span>
-            <span>Candle: <%= settings.candleSize %></span>
+            <table id="info-table">
+                <tr class="info-tr">
+                    <th>
+                        <span>サーバー状態</span>
+                    </th>
+                    <th>
+                        <span>ロット</span>
+                    </th>
+                    <th>
+                        <span>レバレッジ</span>
+                    </th>
+                    <th>
+                        <span>キャンドル</span>
+                    </th>
+                    <th>
+                        <span>現在時刻</span>
+                    </th>
+                </tr>
+                <%
+                    const date = new Date();
+                    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    const day = ('0' + date.getDate()).slice(-2);
+                    const hour = ('0' + date.getHours()).slice(-2);
+                    const minutes = ('0' + date.getMinutes()).slice(-2);
+                    const seconds = ('0' + date.getSeconds()).slice(-2);
+                    clockText = `${date.getFullYear()}/${month}/${day} ${hour}:${minutes}:${seconds}`;
+                %>
+
+                <tr class="info-tr">
+                    <td> <span><%= status %></span> </td>
+                    <td> <span><%= settings.lot %>btc</span></td>
+                    <td> <span><%= settings.leverage %>倍</span></td>
+                    <td> <span><%= settings.candleSize %>分足</span></td>
+                    <td> <span id="clock"><%= clockText %></span></td>
+                </tr>
+            </table>
 			<input type="button" value="update" onclick="location.reload()">
+            <script>
+                console.log('script!');
+                window.addEventListener('load', () => {
+                    const clock = document.querySelector('#clock');
+                    setInterval(() => {
+                        const date = new Date();
+                        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                        const day = ('0' + date.getDate()).slice(-2);
+                        const hour = ('0' + date.getHours()).slice(-2);
+                        const minutes = ('0' + date.getMinutes()).slice(-2);
+                        const seconds = ('0' + date.getSeconds()).slice(-2);
+                        clock.innerText = `${date.getFullYear()}/${month}/${day} ${hour}:${minutes}:${seconds}`;
+                    }, 1000);
+                });
+            </script>
 		</div>
 		<div class="collateral content">
 			<table>
