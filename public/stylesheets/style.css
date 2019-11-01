@@ -107,6 +107,15 @@ li {
     overflow-y: scroll;
 }
 
+#info-table {
+    width: 100%;
+}
+
+.info-tr {
+    text-align: center;
+
+}
+
 @media screen and (max-width: 480px) {
 	.content {
 		width: 100vw;
