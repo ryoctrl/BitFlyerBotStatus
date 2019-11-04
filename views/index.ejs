@@ -3,8 +3,10 @@
   <head>
     <title>BitFlyerBot</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js" integrity="sha256-Dul4c09cdrWKXVtallPxF558lwxMwCC8dXJdZ0PVW54=" crossorigin="anonymous"></script>
+    <script src="/js/socket.js"></script>
     <script>
-        setTimeout(() => location.reload(), 60000);
+        //setTimeout(() => location.reload(), 60000);
     </script>
   </head>
 	<body>
@@ -47,7 +49,6 @@
             </table>
 			<input type="button" value="update" onclick="location.reload()">
             <script>
-                console.log('script!');
                 window.addEventListener('load', () => {
                     const clock = document.querySelector('#clock');
                     setInterval(() => {

@@ -74,7 +74,7 @@ class BotStatus {
     async getLogs() {
         const today = moment().format('YYYYMMDD');
         const pm2Status = await this._getPm2Status();
-        const path = pm2Status.pm2_env.env.PWD + '/logs/' + today + '.log';
+        const path = pm2Status.pm2_env.pm_cwd + '/logs/' + today + '.log';
         try {
             fs.statSync(path);
             const logs = fs.readFileSync(path).toString().split('\n').slice(-51).slice(0, 50).reverse();
@@ -86,7 +86,8 @@ class BotStatus {
 
     async getSettings() {
         const pm2Status = await this._getPm2Status();
-        const path = pm2Status.pm2_env.env.PWD + '/bot/vixrsi/vixrsi_config.js';
+        console.log(pm2Status.pm2_env.pm_cwd);
+        const path = pm2Status.pm2_env.pm_cwd + '/bot/vixrsi/vixrsi_config.js';
         const settings = require(path);
         const traderSettings = settings.trader;
         const settingsObj = {
